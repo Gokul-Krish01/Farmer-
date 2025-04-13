@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="../static/css/payment.css">
+    <script>
+        function togglePaymentFields() {
+            let paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+            document.getElementById('upi_section').style.display = (paymentMethod === 'upi') ? 'block' : 'none';
+            document.getElementById('card_section').style.display = (paymentMethod === 'card') ? 'block' : 'none';
+        }
+    </script>
+</head>
+<body>
+    <h2>Payment Details</h2>
+
+    {% if cart_items %}
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₹{{ item.price }}</td>
+                <td>₹{{ item.total }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h3>Total Amount: ₹{{ total_price }}</h3>
+
+        <!-- Billing Address Form -->
+        <h3>Billing Address</h3>
+        <form action="{{ url_for('process_payment') }}" method="POST">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="mobile">Mobile Number:</label>
+            <input type="text" id="mobile" name="mobile" required>
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" required></textarea>
+
+            <label for="pincode">Pincode:</label>
+            <input type="text" id="pincode" name="pincode" required>
+
+            <h3>Payment Method</h3>
+            <input type="radio" id="cod" name="payment_method" value="cod" checked onclick="togglePaymentFields()">
+            <label for="cod">Cash on Delivery (COD)</label><br>
+
+            <input type="radio" id="upi" name="payment_method" value="upi" onclick="togglePaymentFields()">
+            <label for="upi">UPI</label><br>
+
+            <input type="radio" id="card" name="payment_method" value="card" onclick="togglePaymentFields()">
+            <label for="card">Credit/Debit Card</label><br>
+
+            <!-- UPI Payment Section -->
+            <div id="upi_section" style="display: none;">
+                <label for="upi_id">Enter UPI ID:</label>
+                <input type="text" id="upi_id" name="upi_id">
+            </div>
+
+            <!-- Card Payment Section -->
+            <div id="card_section" style="display: none;">
+                <label for="card_number">Card Number:</label>
+                <input type="text" id="card_number" name="card_number">
+
+                <label for="expiry">Expiry Date:</label>
+                <input type="text" id="expiry" name="expiry" placeholder="MM/YY">
+
+                <label for="cvv">CVV:</label>
+                <input type="password" id="cvv" name="cvv">
+            </div>
+
+            <button type="submit">Make Payment</button>
+        </form>
+    {% else %}
+        <p>No items in cart.</p>
+    {% endif %}
+
+    <a href="{{ url_for('view_cart') }}">Back to Cart</a>
+</body>
+</html>

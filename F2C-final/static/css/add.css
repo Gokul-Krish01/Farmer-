@@ -1,0 +1,125 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+}
+
+/* Body Styling */
+body {
+    background: linear-gradient(135deg, #8f2c24, #6b1e18);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Container */
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    width: 600px;
+    text-align: center;
+    transform: perspective(1000px) rotateX(5deg);
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s;
+    opacity: 0;
+    animation: slideIn 1s forwards;
+}
+
+/* Container Hover Effect */
+.container:hover {
+    transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Heading */
+h2 {
+    color: #8f2c24;
+    margin-bottom: 15px;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Input Group */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    position: relative;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #8f2c24;
+}
+
+/* Inputs & Select */
+input, select {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    background: white;
+    position: relative;
+}
+
+/* Floating Effect on Focus */
+input:focus, select:focus {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0px 6px 15px rgba(143, 44, 36, 0.3);
+    border-color: #8f2c24;
+}
+
+/* Button Styling */
+.btn {
+    background: #8f2c24;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.4s;
+    transform: perspective(1000px) translateZ(5px);
+    font-weight: bold;
+}
+
+/* Button Hover Animation */
+.btn:hover {
+    background: #6b1e18;
+    transform: perspective(1000px) translateZ(10px) translateY(-3px);
+    box-shadow: 0 10px 25px rgba(143, 44, 36, 0.4);
+}
+
+/* Button Click Effect */
+.btn:active {
+    transform: scale(0.95);
+}
+
+/* File Input */
+input[type="file"] {
+    border: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}

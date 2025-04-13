@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="../static/css/aboutus.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="/">F2C</a>
+        </div>
+       
+        <nav class="center-nav">
+            <a href="/" class="btn">Home</a>
+            <a href="/login" class="btn">Shop</a>
+            <a href="/aboutus" class="btn">About Us</a>
+            <a href="/help" class="btn" >Helpline</a>
+        </nav>
+        <nav class="left-nav">
+            <a href="/register" class="btn">Register</a>
+            <a href="/login" class="btn">Login</a>
+        </nav>
+    </header>
+    <section class="about-container">
+        <!-- Slideshow Section -->
+        <div class="slideshow-container">
+            <div class="slides fade">
+                <img src="../static/images/WhatsApp Image 2025-02-25 at 19.29.42.jpeg" alt="Person 1">
+            </div>
+            <div class="slides fade">
+                <img src="../static/images/WhatsApp Image 2025-02-19 at 21.23.33.jpeg" alt="Person 2">
+            </div>
+            <div class="slides fade">
+                <img src="../static/images/WhatsApp Image 2025-02-19 at 21.33.13.jpeg" alt="Person 3">
+            </div>
+            
+        </div>
+
+        <!-- Details Section -->
+        <div class="about-text">
+            <h2>About Us</h2>
+            <div id="person-info">
+                <p><strong>Name:</strong> <span id="name">John Doe</span></p>
+                <p><strong>Roll No:</strong> <span id="roll">123456</span></p>
+                <p><strong>Phone:</strong> <span id="phone">+91 9876543210</span></p>
+            </div>
+        </div>
+    </section>
+    <div class="additional-content">
+        <h3>Our Mission</h3>
+        <ul>
+            <li><strong>Eliminate Middlemen:</strong> Enable direct transactions between farmers and consumers to ensure fair pricing and better profit margins for farmers.</li>
+            <li><strong>Provide a Digital Marketplace:</strong> Create an easy-to-use platform where farmers can list their produce and consumers can browse and purchase fresh farm products.</li>
+            <li><strong>Optimize Supply Chain:</strong> Integrate logistics support with geo-location and route optimization to reduce transportation costs and food wastage.</li>
+            <li><strong>Boost Rural Economy:</strong> Empower small-scale farmers by giving them a digital presence and expanding their reach beyond local markets.</li>
+        </ul>
+    </div>
+
+
+    <div class="more-content">
+        <h3>Abstract</h3>
+        <ul>
+            <li>The Farmer-to-Consumer App is a digital marketplace that directly connects farmers with consumers, eliminating middlemen and ensuring fair pricing. Farmers can list their fresh produce, manage inventory, process orders, and receive direct payments, while consumers can browse, purchase, and opt for delivery or pickup.
+            </li>
+            <li> ⁠The platform integrates AI-driven price recommendations and demand forecasting to help farmers optimize their pricing and production strategies. Additionally, logistics support enhances delivery route efficiency, minimizing costs and food wastage.
+            </li>
+            <li> ⁠The app promotes transparency, efficiency, and sustainability in agricultural commerce while empowering farmers, encouraging local and organic farming, and strengthening consumer trust. This scalable solution has the potential to modernize agricultural trade and enhance rural economies.</li>
+            
+        </ul>
+    </div>
+    <script>
+        let slideIndex = 0;
+        const slides = document.getElementsByClassName("slides");
+
+        const people = [
+            { name: "Tharun vasakam", roll: "720721106114", phone: "99626 66445" },
+            { name: "Riyas", roll: "720721106089", phone: "7812891004" },
+            { name: "Sri Ram", roll: "720721106107", phone: "9342816043" }
+        ];
+
+        function showSlides() {
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+
+            slides[slideIndex - 1].style.display = "block";
+
+            // Update details based on the current slide
+            document.getElementById("name").innerText = people[slideIndex - 1].name;
+            document.getElementById("roll").innerText = people[slideIndex - 1].roll;
+            document.getElementById("phone").innerText = people[slideIndex - 1].phone;
+
+            setTimeout(showSlides, 3000); // Change image every 3 seconds
+        }
+
+        document.addEventListener("DOMContentLoaded", showSlides);
+
+        function showAlert() {
+            alert('7812891004');
+        }
+    </script>
+</body>
+</html>

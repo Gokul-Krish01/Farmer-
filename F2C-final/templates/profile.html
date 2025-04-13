@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="../static/css/profile.css">
+</head>
+<body>
+
+    
+
+    <div class="profile-container">
+        <!-- Display Profile Picture -->
+        <img src="{{ url_for('static', filename='uploads/profile_pictures/' + user.profile_pic) if user.profile_pic else url_for('static', filename='uploads/default_profile.png') }}" 
+        alt="Profile Picture" class="profile-img">
+        <h2>{{ user.username }}</h2>
+        <div class="profile-info">
+            
+            <p><strong>Role:</strong> {{ user.role }}</p>
+            <p><strong>Age:</strong> {{ user.age }}</p>
+            <p><strong>Mobile:</strong> {{ user.mobile }}</p>
+            <p><strong>State:</strong> {{ user.state }}</p>
+            <p><strong>District:</strong> {{ user.district }}</p>
+            <p><strong>Pin Code:</strong> {{ user.pin_code }}</p>
+        </div>
+
+        <a href="{{ url_for('dashboard') }}" class="back-btn">Back to Dashboard</a>
+    </div>
+
+    <!-- Back to Dashboard Button -->
+
+
+</body>
+</html>

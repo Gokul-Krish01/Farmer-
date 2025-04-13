@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - Details</title>
+    <link rel="stylesheet" href="../static/css/prodet.css">
+    
+</head>
+<body>
+
+    <div class="container">
+        <a href="{{ url_for('products') }}" class="back-btn">&#10006;</a>
+    
+        <div class="product-details-container">
+            <!-- Left: Product Image -->
+            <div class="product-image">
+                <img class="product-img" src="{{ url_for('static', filename='uploads/products/' + product.image) }}" alt="{{ product.name }}" width="500px" height="500px">
+                
+                <!-- Buttons below the image -->
+                <div class="button-container">
+                    <form action="{{ url_for('add_to_cart', product_id=product['_id']) }}" method="POST">
+                        <input type="number" name="quantity" value="1" min="1" required>
+                        <button type="submit" class="btn add-cart">Add to Cart</button>
+                    </form>
+                    <form action="{{ url_for('payment') }}" method="GET">
+                        <input type="hidden" name="product_id" value="{{ product['_id'] }}">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" class="btn buy-now">Buy Now</button>
+                    </form>
+                    <!-- Delete Button (Only Visible to Farmers) -->
+                    
+               
+                <form action="{{ url_for('delete_product', product_id=product['_id']) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn delete-product">Delete</button>
+                </form>
+         
+                 
+
+                </div>
+            </div>
+    
+            <!-- Right: Product Info -->
+            <div class="product-info">
+                <h2>{{ product.name }}</h2>
+                <p><strong>Category:</strong> {{ product.category }}</p>
+                <H3> ₹{{ product.price }}</H3>
+                <p><strong>Quantity:</strong> {{ product.quantity }}</p>
+                <p><strong>Description:</strong> {{ product.description }}</p>
+                <p><strong>Added On:</strong> {{ product.added_date }}</p>
+                <p><strong>Expiry Date:</strong> {{ product.expiry_date }}</p>
+                
+            </div>
+        </div>
+    
+        <!-- Review Section at Bottom Center -->
+        <div class="review-section">
+            <h3>Ratings & Reviews</h3>
+            {% if reviews and reviews|length > 0 %}
+                {% for review in reviews %}
+                    <p><strong>{{ review.user }}:</strong> {{ review.text }} - ⭐ {{ review.rating }}/5</p>
+                {% endfor %}
+            {% else %}
+                <p>No reviews and ratings available.</p>
+            {% endif %}
+        </div>
+    </div>
+    
+
+</body>
+</html>

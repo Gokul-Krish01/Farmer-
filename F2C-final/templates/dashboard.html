@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard</title>
+    <link rel="stylesheet" href="../static/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">F2C</div>
+        <nav>
+            <a href="{{ url_for('profile') }}" class="btn">View Profile</a>
+            {% if role == "farmer" %}
+                <a href="{{ url_for('add_product') }}" class="btn">Add Product</a>
+            {% endif %}
+            <a href="{{ url_for('products') }}" class="btn">View Products</a>
+            {% if role == "consumer" %}
+                <a href="{{ url_for('view_cart') }}" class="btn cart-btn">View Cart</a>
+            {% endif %}
+            <a href="{{ url_for('view_cart') }}" class="btn cart-btn">Plant Diseases Prediction</a>
+            <a href="{{ url_for('view_cart') }}" class="btn cart-btn">Chatbot</a>
+            <a href="{{ url_for('logout') }}" class="btn logout-btn">Logout</a>
+        </nav>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Categories Sidebar -->
+        <aside class="categories-sidebar">
+            <h2>Categories</h2>
+            <ul>
+                {% for category in categories.keys() %}
+                    <li><a href="#" onclick="filterByCategory('{{ category }}')">{{ category }}</a></li>
+                {% endfor %}
+            </ul>
+        </aside>
+
+        <!-- Product Details -->
+        <section class="products-section">  
+            <div class="search-container">
+                <input type="text" id="searchName" placeholder="Search by product name..." onkeyup="filterProducts()">
+                <input type="number" id="searchPrice" placeholder="Max price" onkeyup="filterProducts()">
+            </div>
+
+            {% for category, items in categories.items() %}
+            <div class="category-section" data-category="{{ category }}">
+                <h2 class="category-title">{{ category }}</h2>
+                <div class="products-container">
+                    {% for product in items %}
+                        <a href="{{ url_for('product_detail', product_id=product._id) }}" class="product-link">
+                            <div class="product-card" data-category="{{ category }}" data-name="{{ product.name | lower }}" data-price="{{ product.price }}">
+                                <br>
+                                <!-- Product Image (Left) -->
+
+                                <img src="{{ url_for('static', filename='uploads/products/' + product.image) }}" alt="{{ product.name }}">                                
+                                <!-- Product Details (Left) -->
+                                <div class="product-details">
+                                    <h3>{{ product.name }}</h3>
+                                    <p>Quantity: {{ product.quantity }}</p>
+                                </div>
+            
+                                <!-- Product Price (Right) -->
+                                <div class="product-price">
+                                    ₹{{ product.price }}/kg
+                                </div>
+                                
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            {% endfor %}
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+        gsap.from("header", { duration: 1, y: -50, opacity: 0, ease: "power2.out" });
+        gsap.from(".btn", { duration: 0.8, scale: 0.9, opacity: 0, stagger: 0.2 });
+
+        // 3D Hover Effect for Products
+        document.querySelectorAll(".product-card").forEach(card => {
+            card.addEventListener("mousemove", (e) => {
+                let { offsetX: x, offsetY: y } = e;
+                let { offsetWidth: width, offsetHeight: height } = card;
+                let moveX = (x / width) * 30 - 15;
+                let moveY = (y / height) * 30 - 15;
+                card.style.transform = `rotateY(${moveX}deg) rotateX(${moveY}deg)`;
+            });
+
+            card.addEventListener("mouseleave", () => {
+                card.style.transform = "rotateY(0deg) rotateX(0deg)";
+            });
+        });
+
+        // Category Filter
+        function filterByCategory(category) {
+            document.querySelectorAll(".category-section").forEach(section => {
+                section.style.display = section.getAttribute("data-category") === category ? "block" : "none";
+            });
+        }
+
+        // Product Search Function
+        function filterProducts() {
+            let nameFilter = document.getElementById("searchName").value.toLowerCase();
+            let priceFilter = document.getElementById("searchPrice").value;
+
+            document.querySelectorAll(".product-card").forEach(card => {
+                let productName = card.getAttribute("data-name");
+                let productPrice = parseFloat(card.getAttribute("data-price"));
+
+                let matchesName = nameFilter === "" || productName.includes(nameFilter);
+                let matchesPrice = priceFilter === "" || productPrice <= parseFloat(priceFilter);
+
+                card.style.display = matchesName && matchesPrice ? "block" : "none";
+            });
+        }
+    </script>
+</body>
+</html>

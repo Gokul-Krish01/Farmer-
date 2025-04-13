@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="../static/css/add.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Add a New Product</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="input-group">
+                <label for="name">Product Name:</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="input-group">
+                <label for="price">Price(₹ Per Kg):</label>
+                <input type="text" name="price" step="0.01" required>
+            </div>
+            <div class="input-group">
+                <label for="category">Category:</label>
+                <select name="category" required>
+                    <option value="Vegetables">Vegetables</option>
+                    <option value="Fruits">Fruits</option>
+                    <option value="Dairy">Dairy</option>
+                    <option value="Grains">Grains</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" name="quantity" required>
+            </div>
+            <div class="input-group">
+                <label for="expiry_date">Expiry Date:</label>
+                <input type="date" name="expiry_date" required>
+            </div>
+            <div class="input-group">
+                <label for="image">Upload Image:</label>
+                <input type="file" name="image" required>
+            </div>
+            <div class="input-group">
+                <label for="description">Product Description:</label>
+                <textarea name="description" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn">Add Product</button>
+        </form>
+    </div>
+</body>
+</html>
